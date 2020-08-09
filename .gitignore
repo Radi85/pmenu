@@ -63,3 +63,4 @@ Pipfile
 
 # system dependent file
 pmenu.spec
+pmenu_venv
