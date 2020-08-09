@@ -12,7 +12,8 @@ from src.styles import Styles
 class PMenu(QWidget):
     def __init__(self, **kwargs):
         self.app = QApplication(sys.argv)
-        self.window_height = kwargs.get('app_height') or settings.HEIGHT
+        self.app_transparent = settings.APP_TRANSPARENT
+        self.window_height = kwargs.get('app_height') or settings.APP_HEIGHT
         self.input_width = kwargs.get('input_width') or settings.INPUT_WIDTH
         self.show_vertical = kwargs.get('vertical', False)
         self.list_max_items = kwargs.get('list_max_items') or settings.LIST_MAX_ITEMS
@@ -23,7 +24,8 @@ class PMenu(QWidget):
         self.cursor_position = 0
         super().__init__(flags=Qt.WindowFlags(Qt.Window | Qt.FramelessWindowHint))
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        if self.app_transparent:
+            self.setAttribute(Qt.WA_TranslucentBackground)
         self.app.installEventFilter(self)
         self.item_parser = ItemsParser(items=self.stdin_items)
         self.items = {}
