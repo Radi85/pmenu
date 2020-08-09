@@ -37,6 +37,8 @@ try:
 except ValueError:
     LIST_ITEM_HEIGHT = 22
 
+LIST_VERTICAL = user_settings.get('LIST_VERTICAL', 'FALSE').upper() == 'TRUE'
+
 
 # active item settings
 ACTIVE_BACKGROUND = user_settings.get('ACTIVE_BACKGROUND', 'rgb(18, 73, 106)')

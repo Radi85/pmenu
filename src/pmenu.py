@@ -16,13 +16,13 @@ class PMenu(QWidget):
         super().__init__(flags=Qt.WindowFlags(Qt.Window | Qt.FramelessWindowHint))
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
         self.__init_variables(**kwargs)
+        self.layout = None
         self.line_edit = None
         self.list_widget = None
         self.cursor_position = 0
         self.app.installEventFilter(self)
         self.item_parser = ItemsParser(items=self.stdin_items)
         self.items = {}
-        self.layout = QVBoxLayout(self) if self.show_vertical else QHBoxLayout(self)
         self.setup()
         self.show()
         sys.exit(self.app.exec_())
@@ -33,7 +33,7 @@ class PMenu(QWidget):
             self.setAttribute(Qt.WA_TranslucentBackground)
         self.app_height = kwargs.get('app_height') or settings.APP_HEIGHT
         self.input_width = kwargs.get('input_width') or settings.INPUT_WIDTH
-        self.show_vertical = kwargs.get('vertical', False)
+        self.show_vertical = kwargs.get('vertical') or settings.LIST_VERTICAL
         self.list_max_items = kwargs.get('list_max_items') or settings.LIST_MAX_ITEMS
         self.list_item_height = kwargs.get('list_item_height') or settings.LIST_ITEM_HEIGHT
         self.stdin_items = kwargs.get('stdin_items')
@@ -45,6 +45,7 @@ class PMenu(QWidget):
         self.setStyleSheet(Styles.app)
 
     def setup(self):
+        self.layout = QVBoxLayout(self) if self.show_vertical else QHBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.line_edit = self.create_line_edit()
         self.layout.addWidget(self.line_edit, 0, Qt.AlignLeft)
