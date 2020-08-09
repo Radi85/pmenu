@@ -50,7 +50,7 @@ class PMenu(QWidget):
             self.list_widget.set_vertical_widget()
         else:
             self.list_widget.set_horizontal_widget()
-
+        self.list_widget.update_items([item for item in self.item_parser.ITEMS.keys()])
         self.layout.addWidget(self.list_widget)
         self.layout.setSpacing(0)
         self.line_edit.textChanged.connect(self.search)
@@ -77,7 +77,7 @@ class PMenu(QWidget):
         self.items = self.item_parser.filter_items(value)
         if not value:
             self.items = {}
-        self.list_widget.add_items([item for item in self.items.keys()])
+        self.list_widget.update_items([item for item in self.items.keys()])
         if self.show_vertical:
             self.setFixedHeight(self.list_widget.height + self.window_height)
 

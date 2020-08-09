@@ -1,12 +1,27 @@
 from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QListWidgetItem, QListWidget
 
+import settings
 from src.styles import Styles
+
+
+class Font(QFont):
+    def __init__(self):
+        super().__init__()
+        family = settings.FONT_FAMILY
+        if family not in QFontDatabase().families():
+            family = self.defaultFamily()
+        self.setFamily(family)
+        self.setPixelSize(settings.FONT_SIZE)
+        self.setBold(settings.FONT_BOLD)
+        self.setItalic(settings.FONT_ITALIC)
 
 
 class ListWidget(QListWidget):
     def __init__(self, **kwargs):
         super().__init__()
+        self.font = Font()
         self.setStyleSheet(Styles.list_widget)
         self.item_spacing = 2
         self.setSpacing(self.item_spacing)
@@ -31,10 +46,11 @@ class ListWidget(QListWidget):
         self.setFixedHeight(self.height)
         self.show_vertical = False
 
-    def add_items(self, items):
+    def update_items(self, items):
         self.clear()
         for item_str in items:
             item = QListWidgetItem(item_str)
+            item.setFont(self.font)
             if self.show_vertical:
                 item.setSizeHint(self.item_size)
             self.addItem(item)
