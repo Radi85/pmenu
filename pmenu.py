@@ -15,12 +15,16 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--list_max_items', type=int, help='Total number of view items')
     parser.add_argument('-w', '--input_width', type=int, help='Width of search field')
     parser.add_argument('-l', '--list', action='store_true', help='Show vertically as list')
-    parser.add_argument('-f', '--font', action='store_true', help='Show system fonts')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-f', '--font', action='store_true', help='Show system fonts')
+    group.add_argument('-s', '--settings', action='store_true', help='Show parsed settings file')
     parser.add_argument('items', nargs='*')
 
     args = parser.parse_args()
 
-    if not sys.stdin.isatty() and not args.items and not args.font:
+    system_option = args.font or args.settings
+
+    if not sys.stdin.isatty() and not args.items and not system_option:
         input_stream = sys.stdin.read()
         args.items = input_stream.splitlines()
 
@@ -31,5 +35,6 @@ if __name__ == '__main__':
         list_max_items=args.list_max_items,
         list_item_height=args.list_item_height,
         stdin_items=args.items,
-        show_system_fonts=args.font
+        show_system_fonts=args.font,
+        show_parsed_settings=args.settings
     )

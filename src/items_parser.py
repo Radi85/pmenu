@@ -21,6 +21,8 @@ class ItemsParser(object):
     def __init__(self, items=None):
         self.is_item_app = True
         if items:
+            if not isinstance(items, list):
+                items = [items]
             self.set_items(items)
             self.is_item_app = False
         elif platform.system() == settings.MAC:

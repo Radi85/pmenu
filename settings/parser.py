@@ -14,16 +14,11 @@ class Parser(object):
     def __init__(self):
         exe = sys.executable
         app_dir = os.path.dirname(exe)
-        username = self.get_username()
-        if platform.system() == MAC:
-            self.target_files.append(f'/Users/{username}/{self.settings_file}')
-            self.target_files.append(f'/Users/{username}/.config/{self.settings_file}')
-            self.target_files.append(f'{app_dir}/{self.settings_file}')
-            self.target_files.append(self.settings_file)
-
-    @staticmethod
-    def get_username():
-        return os.environ.get('USER') or os.environ.get('USERNAME')
+        home_dir = os.path.expanduser('~')
+        self.target_files.append(f'{home_dir}/{self.settings_file}')
+        self.target_files.append(f'{home_dir}/.config/{self.settings_file}')
+        self.target_files.append(f'{app_dir}/{self.settings_file}')
+        self.target_files.append(self.settings_file)
 
     def get_settings_file(self):
         for target in self.target_files:
@@ -46,4 +41,6 @@ class Parser(object):
         return settings
 
 
-user_settings = Parser().read_settings()
+parser = Parser()
+user_settings = parser.read_settings()
+PARSED_SETTINGS_FILE = parser.get_settings_file()

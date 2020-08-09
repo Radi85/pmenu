@@ -38,8 +38,11 @@ class PMenu(QWidget):
         self.list_item_height = kwargs.get('list_item_height') or settings.LIST_ITEM_HEIGHT
         self.stdin_items = kwargs.get('stdin_items')
         self.show_system_fonts = kwargs.get('show_system_fonts', False)
+        self.show_parsed_settings = kwargs.get('show_parsed_settings', False)
         if self.show_system_fonts:
             self.stdin_items = QFontDatabase().families()
+        if self.show_parsed_settings:
+            self.stdin_items = settings.PARSED_SETTINGS_FILE
         self.full_width = self.app.desktop().screen().width()
         self.setGeometry(0, 0, self.full_width, self.app_height)
         self.setStyleSheet(Styles.app)
