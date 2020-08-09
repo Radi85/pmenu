@@ -60,3 +60,6 @@ docs/_build/
 # env files
 Pipfile.lock
 Pipfile
+
+# system dependent file
+pmenu.spec
