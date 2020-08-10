@@ -1,8 +1,8 @@
 #!/bin/bash
 
-python3 -m venv pmenu_venv;
+python3.6 -m venv pmenu_venv;
 source pmenu_venv/bin/activate;
-pip install -r requirements.txt;
+pip install --upgrade pip && pip install -r requirements.txt;
 PyInstaller pmenu/pmenu.py --onefile;
 cp pmenu/.pmenu.ini $HOME/.pmenu.ini;
 rm -rf pmenu_venv
