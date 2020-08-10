@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from src.pmenu import PMenu
+from src.app import PMenu
 
 
 if __name__ == '__main__':
