@@ -1,6 +1,10 @@
 PMenu
 ######
 
+.. image:: docs/_static/img/horizontal.png
+
+.. image:: docs/_static/img/vertical.png
+
 Support Mac and Linux.
 
 A small search app written in Python. It somehow simulates dmenu.
@@ -14,6 +18,8 @@ Installation
 
 ::
 
+    $ git clone https://github.com/Radi85/pmenu.git
+    $ cd pmenu
     $ ./install.sh
 
 ::
