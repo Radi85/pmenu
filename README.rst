@@ -5,8 +5,7 @@ A small search app written in Python. It somehow simulates dmenu.
 
 Any list of items can be passed as argument and the app will graphically represent them and return the selected item.
 
-On Mac:
-By default if there is no item list passed, the available apps on the system will be retrieved and selected app will be executed.
+By default if there is no list of items passed, the available apps on the system will be retrieved and selected app will be executed.
 
 ::
 

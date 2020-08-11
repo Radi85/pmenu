@@ -1,7 +1,6 @@
-import sys
+from sys import argv, exit as sys_exit
 
 from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QHBoxLayout, QVBoxLayout
 
 import settings
@@ -12,9 +11,10 @@ from src.styles import Styles
 
 class PMenu(QWidget):
     def __init__(self, **kwargs):
-        self.app = QApplication(sys.argv)
+        self.app = QApplication(argv)
         super().__init__(flags=Qt.WindowFlags(Qt.Window | Qt.FramelessWindowHint))
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
+        self.show()
         self.__init_variables(**kwargs)
         self.layout = None
         self.line_edit = None
@@ -24,8 +24,7 @@ class PMenu(QWidget):
         self.item_parser = ItemsParser(items=self.stdin_items)
         self.items = {}
         self.setup()
-        self.show()
-        sys.exit(self.app.exec_())
+        sys_exit(self.app.exec_())
 
     def __init_variables(self, **kwargs):
         self.app_transparent = settings.APP_TRANSPARENT
@@ -40,6 +39,7 @@ class PMenu(QWidget):
         self.show_system_fonts = kwargs.get('show_system_fonts', False)
         self.show_parsed_settings = kwargs.get('show_parsed_settings', False)
         if self.show_system_fonts:
+            from PyQt5.QtGui import QFontDatabase
             self.stdin_items = QFontDatabase().families()
         if self.show_parsed_settings:
             self.stdin_items = settings.PARSED_SETTINGS_FILE

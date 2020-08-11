@@ -1,5 +1,5 @@
-import argparse
-import sys
+from argparse import ArgumentParser
+from sys import stdin
 
 from src.app import PMenu
 
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     shell_program | pmenu
     shell_program | xargs pmenu
     """
-    parser = argparse.ArgumentParser(description='pmenu')
+    parser = ArgumentParser(description='pmenu')
     parser.add_argument('-H', '--app_height', type=int, help='Total height of the application')
     parser.add_argument('-i', '--list_item_height', type=int, help='Item height')
     parser.add_argument('-n', '--list_max_items', type=int, help='Total number of items to be viewed in the list')
@@ -24,8 +24,8 @@ if __name__ == '__main__':
 
     system_option = args.font or args.settings
 
-    if not sys.stdin.isatty() and not args.items and not system_option:
-        input_stream = sys.stdin.read()
+    if not stdin.isatty() and not args.items and not system_option:
+        input_stream = stdin.read()
         args.items = input_stream.splitlines()
 
     PMenu(
