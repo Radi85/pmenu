@@ -42,7 +42,7 @@ class PMenu(QWidget):
             from PyQt5.QtGui import QFontDatabase
             self.stdin_items = QFontDatabase().families()
         if self.show_parsed_settings:
-            self.stdin_items = settings.PARSED_SETTINGS_FILE
+            self.stdin_items = settings.PARSED_SETTINGS_FILE or "No settings file was parsed"
         self.full_width = self.app.desktop().screen().width()
         self.setGeometry(0, 0, self.full_width, self.app_height)
         self.setStyleSheet(Styles.app)

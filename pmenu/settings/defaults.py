@@ -25,7 +25,7 @@ INPUT_TEXT_COLOR = user_settings.get('INPUT_COLOR', 'rgb(188, 188, 188)')
 # list widget settings
 LIST_BACKGROUND = user_settings.get('LIST_BACKGROUND', 'rgb(17, 17, 17)')
 LIST_TEXT_COLOR = user_settings.get('LIST_COLOR', 'rgb(188, 188, 188)')
-LIST_MAX_ITEMS = user_settings.get('LIST_MAX_ITEMS', 5)
+LIST_MAX_ITEMS = user_settings.get('LIST_MAX_ITEMS', 10)
 try:
     LIST_MAX_ITEMS = int(LIST_MAX_ITEMS)
 except ValueError:
@@ -41,13 +41,13 @@ LIST_VERTICAL = user_settings.get('LIST_VERTICAL', 'FALSE').upper() == 'TRUE'
 
 
 # active item settings
-ACTIVE_BACKGROUND = user_settings.get('ACTIVE_BACKGROUND', 'rgb(18, 73, 106)')
+ACTIVE_BACKGROUND = user_settings.get('ACTIVE_BACKGROUND', 'rgb(17, 76, 110)')
 ACTIVE_TEXT_COLOR = user_settings.get('ACTIVE_COLOR', 'rgb(188, 188, 188)')
 
 
 # font settings
 FONT_FAMILY = user_settings.get('FONT_FAMILY', 'SF Mono')
-FONT_SIZE = user_settings.get('FONT_SIZE', 12)
+FONT_SIZE = user_settings.get('FONT_SIZE', 13)
 try:
     FONT_SIZE = int(FONT_SIZE)
 except ValueError:

@@ -1,20 +1,27 @@
 PMenu
 ######
 
+Support Mac and Linux.
+
 A small search app written in Python. It somehow simulates dmenu.
 
-Any list of items can be passed as argument and the app will graphically represent them and return the selected item.
+A list of items can be passed as argument and the app will graphically represent them and return the selected item.
 
-By default if there is no list of items passed, the available apps on the system will be retrieved and selected app will be executed.
+By default if there is no list of items passed, the installed apps on the system will be displayed and selected app will be executed.
+
+Installation
+-------------
+
+::
+
+    $ ./install.sh
 
 ::
 
     $ pmenu -h
-    usage: pmenu [-h] [-H APP_HEIGHT] [-i LIST_ITEM_HEIGHT] [-n LIST_MAX_ITEMS]
-                 [-w INPUT_WIDTH] [-l] [-f | -s]
-                 [items [items ...]]
-
-    pmenu
+    usage: pmenu.py [-h] [-H APP_HEIGHT] [-i LIST_ITEM_HEIGHT] [-n LIST_MAX_ITEMS]
+                [-w INPUT_WIDTH] [-l] [-sf | -ss]
+                [items [items ...]]
 
     positional arguments:
       items
@@ -29,12 +36,41 @@ By default if there is no list of items passed, the available apps on the system
                             Total number of items to be viewed in the list
       -w INPUT_WIDTH, --input_width INPUT_WIDTH
                             Width of search field
-      -l, --list            Show vertically as list
-      -f, --font            Show system fonts
-      -s, --settings        Show parsed settings file
+      -l, --list            Display the list vertically
+      -sf, --show_fonts     Show system fonts
+      -ss, --show_settings  Show parsed settings file
 
 
+Usage
+-----
+
+pmenu can be used as an app's executor, additionally it can be used with other programs as a GUI's selection widget
+
+E.g. integration with gopass_. The entries can be displayed as a list in pmenu.
+
+.. _gopass: https://github.com/gopasspw/gopass
 
 
+::
+
+    $ gopass ls --flat | pmenu -l -n 10 | xargs gopass -c
 
 
+Show available fonts in the system:
+
+::
+
+    $ pmenu -sf -l
+
+
+Style
+------
+
+The style can be customizable by creating ``.pmenu.ini`` file in the $HOME directory or ``pmenu.ini`` in $HOME/.config/
+
+You can find default settings in `pmenu/.pmenu.ini`_ .
+
+.. _pmenu/.pmenu.ini: https://github.com/Radi85/pmenu/blob/master/pmenu/.pmenu.ini
+
+
+PS: The installation process will copy the settings file ``.pmenu.ini`` to $HOME directory.
