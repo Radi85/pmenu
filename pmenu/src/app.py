@@ -87,8 +87,6 @@ class PMenu(QWidget):
     def search(self, value):
         self.cursor_position = len(value)
         self.items = self.item_parser.filter_items(value)
-        if not value:
-            self.items = {}
         self.list_widget.update_items([item for item in self.items.keys()])
         if self.show_vertical:
             self.setFixedHeight(self.list_widget.height + self.app_height)

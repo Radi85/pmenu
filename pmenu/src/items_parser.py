@@ -3,13 +3,13 @@ import platform
 import glob
 import subprocess
 
-import settings
+from settings import LINUX, MAC
 
 
 class ItemsParser(object):
     APPS_DIRECTORY_MAPPER = {
-        settings.LINUX: [],  # TODO
-        settings.MAC: [
+        LINUX: [f'{path}/*' for path in os.environ.get('PATH').split(':')],
+        MAC: [
             '/Applications/*.app',
             '/Applications/Utilities/*.app',
             '/System/Applications/*.app',
@@ -25,18 +25,22 @@ class ItemsParser(object):
                 items = [items]
             self.set_items(items)
             self.is_item_app = False
-        elif platform.system() == settings.MAC:
-            self.set_mac_apps()
+        else:
+            self.set_apps()
 
     def get_search_directories(self):
         return self.APPS_DIRECTORY_MAPPER[platform.system()]
 
-    def set_mac_apps(self):
+    def set_apps(self):
         for directory in self.get_search_directories():
             paths = glob.glob(directory)
             for path in paths:
-                if '.app' in path:
-                    self.ITEMS[os.path.basename(path)[:-4]] = path
+                if platform.system() == LINUX and not os.path.isfile(path):
+                    continue
+                app_name = os.path.basename(path)
+                if platform.system() == MAC and '.app' in path:
+                    app_name = app_name[:-4]
+                self.ITEMS[app_name] = path
 
     def set_items(self, items):
         self.ITEMS = dict(zip(items, items))
@@ -49,9 +53,12 @@ class ItemsParser(object):
 
     def output(self, item):
         if self.is_item_app:
-            program_path = self.ITEMS.get(item)
-            if not program_path:
-                return
-            subprocess.Popen(f'open "{program_path}"', shell=True)
+            if platform.system() == MAC:
+                app_path = self.ITEMS.get(item)
+                if not app_path:
+                    return
+                subprocess.Popen(f'open "{app_path}"', shell=True)
+            else:
+                subprocess.Popen(item, shell=True)
         else:
             subprocess.Popen(f'echo "{item}"', shell=True)
