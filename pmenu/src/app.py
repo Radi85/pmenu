@@ -69,6 +69,9 @@ class PMenu(QWidget):
         self.list_widget.itemClicked.connect(self.output_select_item)
 
     def eventFilter(self, obj, event):
+        if event.type() == QEvent.WindowDeactivate:
+            self.raise_()
+            self.activateWindow()
         if event.type() == QEvent.MouseButtonRelease:
             self.line_edit.setFocus()
         if event.type() == QEvent.KeyPress:
