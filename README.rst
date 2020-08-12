@@ -16,6 +16,8 @@ By default if there is no list of items passed, the installed apps on the system
 Installation
 -------------
 
+Make sure that python3.6 is installed.
+
 ::
 
     $ git clone https://github.com/Radi85/pmenu.git
